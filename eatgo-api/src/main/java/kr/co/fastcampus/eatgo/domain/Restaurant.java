@@ -13,7 +13,7 @@ public class Restaurant {
         return id;
     }
     public String getName() {
-        return "Bob zip";
+        return name;
     }
     public String getAddress() {
         return  address;

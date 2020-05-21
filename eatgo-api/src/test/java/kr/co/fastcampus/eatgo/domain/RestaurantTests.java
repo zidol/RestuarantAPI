@@ -19,4 +19,5 @@ public class RestaurantTests {
         Restaurant restaurant = new Restaurant(1004L,"Bob zip", "Seoul");
         assertThat(restaurant.getInformation(), is("Bob zip in Seoul"));
     }
+
 }
