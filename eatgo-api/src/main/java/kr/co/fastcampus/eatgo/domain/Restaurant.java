@@ -11,7 +11,6 @@ public class Restaurant {
 
     public Restaurant() {
     }
-
     public Restaurant(String name, String address) {
         this.name = name;
         this.address = address;
