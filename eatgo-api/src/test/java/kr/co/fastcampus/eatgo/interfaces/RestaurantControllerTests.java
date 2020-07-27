@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(RestController.class)
+@WebMvcTest(RestaurantController.class)
 public class RestaurantControllerTests {
 
     @Autowired
