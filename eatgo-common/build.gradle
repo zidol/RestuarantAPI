@@ -38,6 +38,7 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
+// ./gradlew build 시 에러가남 추가해줘야함
+//admin에서 common것을 사용해야 하기때문에
 bootJar { enabled = false }
 jar { enabled = true }

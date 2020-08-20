@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:~/data/eatgo
+  jpa:
+    hibernate:
+      #      데이터가 남아 있도록 설정
+      ddl-auto: update
+
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:mem:test
+#    SPRING_PROFILES_ACTIVE=test ./gradlew test => 환경변수 설정해줘야 아래 설정을 사용함
+#    테스트 할때는 아래 설정을 사용함
