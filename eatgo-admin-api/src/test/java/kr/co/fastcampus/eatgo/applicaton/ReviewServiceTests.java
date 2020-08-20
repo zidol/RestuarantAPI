@@ -7,7 +7,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 public class ReviewServiceTests {
@@ -24,14 +30,27 @@ public class ReviewServiceTests {
     }
 
     @Test
-    public void addReview() {
-        Review review = Review.builder()
-                .name("JOKER")
-                .score(3)
-                .description("Mat-it-da")
-                .build();
-        reviewService.addReview(1004L, review);
+    public void getReviews() {
+        List<Review> mockReviews = new ArrayList<>();
+        mockReviews.add(Review.builder().description("Cool!").build());
 
-        verify(reviewRepository).save(any());
+        given(reviewRepository.findAll()).willReturn(mockReviews) ;
+
+        List<Review> reviews = reviewService.getReviews();
+
+        Review review = reviews.get(0);
+        assertThat(review.getDescription(), is("Cool!"));
     }
+
+//    @Test
+//    public void addReview() {
+//        Review review = Review.builder()
+//                .name("JOKER")
+//                .score(3)
+//                .description("Mat-it-da")
+//                .build();
+//        reviewService.addReview(1004L, review);
+//
+//        verify(reviewRepository).save(any());
+//    }
 }

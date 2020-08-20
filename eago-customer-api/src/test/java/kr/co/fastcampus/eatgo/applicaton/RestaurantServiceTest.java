@@ -1,6 +1,5 @@
-package kr.co.fastcampus.eago.applicaton;
+package kr.co.fastcampus.eatgo.applicaton;
 
-import kr.co.fastcampus.eatgo.applicaton.RestaurantService;
 import kr.co.fastcampus.eatgo.domain.*;
 import org.junit.Before;
 import org.junit.Test;

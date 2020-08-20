@@ -1,6 +1,5 @@
-package kr.co.fastcampus.eago.applicaton;
+package kr.co.fastcampus.eatgo.applicaton;
 
-import kr.co.fastcampus.eatgo.applicaton.ReviewService;
 import kr.co.fastcampus.eatgo.domain.Review;
 import kr.co.fastcampus.eatgo.domain.ReviewRepository;
 import org.junit.Before;

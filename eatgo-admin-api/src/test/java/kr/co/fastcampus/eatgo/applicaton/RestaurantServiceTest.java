@@ -23,12 +23,12 @@ public class RestaurantServiceTest {
 
     @Mock
     private RestaurantRepository restaurantRepository;
-
-    @Mock
-    private MenuItemRepository menuItemRepository;
-
-    @Mock
-    private ReviewRepository reviewRepository;
+//31강에서 지움
+//    @Mock
+//    private MenuItemRepository menuItemRepository;
+//
+//    @Mock
+//    private ReviewRepository reviewRepository;
 
     @Before// 모든 테스트 긱긱 ㅅ;ㄹ전에 무조건 한번 실행
     public void setUp() {
@@ -37,20 +37,21 @@ public class RestaurantServiceTest {
         MockitoAnnotations.initMocks(this); //@Mock 객체 초기화
 
         mockRestaurantRepository();                                         //====> 가짜 Repository 생성
-        mockMenuItemRepository();
-        mockReviewRepository();
-
-        restaurantService =  new RestaurantService(restaurantRepository, menuItemRepository, reviewRepository);
+        //31강에서 지움
+//        mockMenuItemRepository();
+//        mockReviewRepository();
+//        restaurantService =  new RestaurantService(restaurantRepository, menuItemRepository, reviewRepository);
+        restaurantService =  new RestaurantService(restaurantRepository);
     }
-
-    private void mockMenuItemRepository() {
-        List<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(MenuItem.builder()
-                .name("Kimchi")
-                .build());
-        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
-    }
-
+//31강에서 지움
+//    private void mockMenuItemRepository() {
+//        List<MenuItem> menuItems = new ArrayList<>();
+//        menuItems.add(MenuItem.builder()
+//                .name("Kimchi")
+//                .build());
+//        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
+//    }
+//
     private void mockRestaurantRepository() {
         List<Restaurant> restaurants = new ArrayList<>();
         Restaurant restaurant = Restaurant.builder()
@@ -66,17 +67,17 @@ public class RestaurantServiceTest {
         given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
 
     }
-
-    private void mockReviewRepository() {
-        List<Review> reviews = new ArrayList<>();
-        reviews.add(Review.builder()
-        .name("BeRyong")
-        .score(1)
-        .description("Bad")
-        .build());
-        given(reviewRepository.findAllByRestaurantId(1004L))
-                .willReturn(reviews);
-    }
+//
+//    private void mockReviewRepository() {
+//        List<Review> reviews = new ArrayList<>();
+//        reviews.add(Review.builder()
+//        .name("BeRyong")
+//        .score(1)
+//        .description("Bad")
+//        .build());
+//        given(reviewRepository.findAllByRestaurantId(1004L))
+//                .willReturn(reviews);
+//    }
 
 
     @Test
@@ -91,18 +92,19 @@ public class RestaurantServiceTest {
     @Test
     public void getRestaurantWithExisted() {
         Restaurant restaurant = restaurantService.getRestaurant(1004L);
-
-        verify(menuItemRepository).findAllByRestaurantId(eq(1004L));
-        verify(reviewRepository).findAllByRestaurantId(eq(1004L));
+//31강에서 지움
+//        verify(menuItemRepository).findAllByRestaurantId(eq(1004L));
+//        verify(reviewRepository).findAllByRestaurantId(eq(1004L));
 
         assertThat(restaurant.getId(), is(1004L));
 
-        MenuItem menuItem = restaurant.getMenuItems().get(0);
-
-        assertThat(menuItem.getName(), is("Kimchi"));
-
-        Review review = restaurant.getReviews().get(0);
-        assertThat(review.getDescription(), is("Bad"));
+        //31강에서 지움
+//        MenuItem menuItem = restaurant.getMenuItems().get(0);
+//
+//        assertThat(menuItem.getName(), is("Kimchi"));
+//
+//        Review review = restaurant.getReviews().get(0);
+//        assertThat(review.getDescription(), is("Bad"));
     }
 
     @Test(expected = RestaurantNotFoundException.class)
