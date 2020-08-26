@@ -1,13 +1,12 @@
 package kr.co.fastcampus.eatgo.interfaces;
 
-import kr.co.fastcampus.eatgo.applicaton.RegionService;
-import kr.co.fastcampus.eatgo.domain.Region;
+import kr.co.fastcampus.eatgo.applicaton.CategoryService;
+import kr.co.fastcampus.eatgo.domain.Category;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -23,33 +22,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(RegionController.class)
-public class RegionControllerTests {
+@WebMvcTest(CategoryController.class)
+public class CategoryControllerTests {
     @Autowired
     private MockMvc mvc;
     @MockBean
-    private RegionService regionService;
+    private CategoryService categoryService;
 
     @Test
     public void list() throws Exception {
-        List<Region> regions = new ArrayList<>();
-        regions.add(Region.builder().name("Seoul").build());
+        List<Category> categories = new ArrayList<>();
+        categories.add(Category.builder().name("Korean Food").build());
 
-        given(regionService.getRegions()).willReturn(regions);
+        given(categoryService.getCategories()).willReturn(categories);
 
-        mvc.perform(get("/regions"))
+        mvc.perform(get("/categories"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Seoul")));
-    }
-    @Test
-    public void create() throws Exception {
-        Region region = Region.builder().name("Seoul").build();
-        given(regionService.addRegion("Seoul")).willReturn(region);
-        mvc.perform(post("/regions")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"Seoul\"}"))
-                .andExpect(status().isCreated())
-                .andExpect(content().string("{}"));
-        verify(regionService).addRegion("Seoul");
+                .andExpect(content().string(containsString("Korean Food")));
     }
 }

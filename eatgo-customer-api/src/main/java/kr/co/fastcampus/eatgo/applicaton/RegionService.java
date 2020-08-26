@@ -11,7 +11,6 @@ import java.util.List;
 public class RegionService {
 
     private RegionRepository regionRepository;
-
     @Autowired
     public RegionService(RegionRepository regionRepository) {
         this.regionRepository = regionRepository;
@@ -21,13 +20,5 @@ public class RegionService {
         List<Region> regions = regionRepository.findAll();
 
         return regions;
-    }
-
-    public Region addRegion(String name) {
-        Region region = Region.builder().name(name).build();
-
-        regionRepository.save(region);
-
-        return region;
     }
 }
