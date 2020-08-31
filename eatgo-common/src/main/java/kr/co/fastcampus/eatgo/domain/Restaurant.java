@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Restaurant {
+
     @Id
     @GeneratedValue
     @Setter
     private Long id;
+
+    //String -> notEmpty, Long -> Notnull
+    @NotNull
+    private Long categoryId;
 
     @NotEmpty
     private String name;
