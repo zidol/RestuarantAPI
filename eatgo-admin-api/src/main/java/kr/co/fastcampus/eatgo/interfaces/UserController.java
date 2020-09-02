@@ -4,10 +4,7 @@ import kr.co.fastcampus.eatgo.applicaton.UserService;
 import kr.co.fastcampus.eatgo.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.event.ListDataEvent;
 import java.net.URI;
@@ -20,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //1. Udrt List
+    //1. User  List
     //2. User Create ->  회원가입
     //3. User update
     //4. User delete -> level : 0 => 아무것도 못허ㅏㅁ
@@ -41,5 +38,25 @@ public class UserController {
 
         String url = "/users/" + user.getId();
         return ResponseEntity.created(new URI(url)).body("{}");
+    }
+
+    @PatchMapping("/users/{id}")
+    public String update(
+            @PathVariable("id")Long id,
+            @RequestBody User resource
+    ) {
+        String email = resource.getEmail();
+        String name = resource.getName();
+        Long level = resource.getLevel();
+
+        userService.updateUser(id, email, name, level);
+
+        return "{}";
+    }
+
+    @DeleteMapping("/users/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        userService.deactiveUser(id);
+        return "{}";
     }
 }
