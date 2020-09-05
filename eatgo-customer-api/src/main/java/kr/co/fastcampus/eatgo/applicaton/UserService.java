@@ -16,9 +16,12 @@ public class UserService {
 
     UserRepository userRepository;
 
+    PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User registerUser(String email, String name, String password) {
@@ -27,9 +30,10 @@ public class UserService {
             //todo : excption!!
             throw new EmailExistedException(email);
         }
+        // PasswordEncoder : spring security에서 제공하는 패스워드 인코더 PasswordEncoder는 인터페이스
+//        PasswordEncoder passwordEncoder = passwordEncoder();
+        String encodedPassword =  passwordEncoder.encode(password);
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();      // PasswordEncoder : spring security에서 제공하는 패스워드 인코더 PasswordEncoder는 인터페이스
-        String encodedPassword = passwordEncoder.encode(password);
         User user = User.builder()
                 .email(email)
                 .name(name)
@@ -41,7 +45,12 @@ public class UserService {
     }
 
     public User authenticate(String email, String password) {
-        //TODO...
-        return null;
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EmailNotExistedException(email));
+
+        if(!passwordEncoder.matches(password, user.getPassword())) {
+            throw new PasswordWrongException();
+        }
+        return user;
     }
 }
