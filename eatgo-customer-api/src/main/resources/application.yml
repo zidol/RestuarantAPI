@@ -6,6 +6,8 @@ spring:
       #      데이터가 남아 있도록 설정
       ddl-auto: update
 
+jwt:
+  secret: 12345678901234567890123456789000
 ---
 spring:
   profiles: test
